@@ -3,6 +3,8 @@ package com.tgs.Student_Course_Enrollment_System.entity;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,9 +22,30 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @AllArgsConstructor
 public class Student {
     
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEnrolledCourses(Set<Course> enrolledCourses) {
+		this.enrolledCourses = enrolledCourses;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,10 +62,5 @@ public class Student {
 		// TODO Auto-generated method stub
 		return enrolledCourses;
 	}
-
-
-
-
-	
 
 }

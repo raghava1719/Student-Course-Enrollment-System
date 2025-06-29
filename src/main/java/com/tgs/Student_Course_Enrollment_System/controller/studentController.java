@@ -40,4 +40,10 @@ public class studentController {
 
         return studentService.enrollStudentToCourse(studentId, courseId);
      }
+    @DeleteMapping("/{studentId}/course/{courseId}")
+    public Student UnEnrollStudentToCourse(@PathVariable
+    long studentId,@PathVariable long courseId) throws Exception{
+
+       return studentService.UnEnrollStudentToCourse(studentId, courseId);
+    }
 }

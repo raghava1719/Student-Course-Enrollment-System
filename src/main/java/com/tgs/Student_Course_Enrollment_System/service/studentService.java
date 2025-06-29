@@ -15,5 +15,6 @@ public interface studentService {
 	Student getStudentById(long id);
 	void deleteStudent(long id);
     Student enrollStudentToCourse(long studentId,long courseId) throws Exception;
+	Student UnEnrollStudentToCourse(long studentId, long courseId) throws Exception;
 
 }

@@ -50,7 +50,25 @@ public class studentServiceImp implements studentService {
         }
         else{
 
-            throw new Exception("Stuent or Course doesn't exist");
+            throw new Exception("Student or Course doesn't exist");
+        }
+
+    }
+    
+    @Override
+    public Student UnEnrollStudentToCourse(long studentId, long courseId) throws Exception {
+    	Student student  = sr.findById(studentId).orElse(null);
+        Course course =  cr.findById(courseId).orElse(null);
+
+        if(student!=null && course !=null)
+        {
+        	student.getEnrolledCourses().remove(course);
+
+            sr.save(student);
+            return student;
+        }
+        else{
+            throw new Exception("Student or Course doesn't exist");
         }
 
     }
