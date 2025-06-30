@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.tgs.Student_Course_Enrollment_System.entity.Course;
@@ -21,8 +22,13 @@ public class studentServiceImp implements studentService {
     private courseRepository cr;
 
     @Override
-    public Student saveStudent(Student student){
-        return sr.save(student);
+    public Student saveStudent(Student student) throws Exception{
+    	try {
+    		return sr.save(student);			
+		} catch (DataIntegrityViolationException e) 
+    	{
+			throw new Exception("Duplicate entry for phone no");
+		}
     }
     @Override
 	public List<Student> getAllStudents(){
@@ -39,7 +45,7 @@ public class studentServiceImp implements studentService {
     	if(sr.findById(id).isPresent()){
     		sr.deleteById(id);
     		return;}
-    	throw new Exception("skd");
+    	throw new Exception("Student with ID " + id + " not found");
         
     }
     @Override
@@ -87,8 +93,13 @@ public class studentServiceImp implements studentService {
 			throw new Exception("Studnet with ID: "+id+" doesn't exist.");
 		
 		student.setName(newStudent.getName());
-		
-		sr.save(student);
+		student.setDepartment(newStudent.getDepartment());
+		student.setPhno(newStudent.getPhno());
+		try {
+			sr.save(student);
+		} catch (DataIntegrityViolationException e) {
+			throw new Exception("Duplicate entry for phone no");
+		}
 		return student;
 	}
 }

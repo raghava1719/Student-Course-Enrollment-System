@@ -1,11 +1,9 @@
 package com.tgs.Student_Course_Enrollment_System.entity;
 
+import java.math.BigInteger;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +23,39 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Student {
     
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	private String department;	
+	@Column(unique = true)
+	private BigInteger phno;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "student_courses",
+			joinColumns = @JoinColumn(name = "student_id"),
+			inverseJoinColumns = @JoinColumn(name = "course_id"))
+	private Set<Course> enrolledCourses  = new HashSet<>();
+	
+	
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public BigInteger getPhno() {
+		return phno;
+	}
+
+	public void setPhno(BigInteger phno) {
+		this.phno = phno;
+	}
+
+ 	
 	public Long getId() {
 		return id;
 	}
@@ -45,17 +76,6 @@ public class Student {
 		this.enrolledCourses = enrolledCourses;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-    private String name;
-
-    @ManyToMany
-    @JoinTable(
-        name = "student_courses",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private Set<Course> enrolledCourses  = new HashSet<>();
 
 	public Set<Course> getEnrolledCourses() {
 		// TODO Auto-generated method stub

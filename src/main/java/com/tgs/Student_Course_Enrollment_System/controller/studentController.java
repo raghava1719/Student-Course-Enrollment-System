@@ -5,11 +5,9 @@ import com.tgs.Student_Course_Enrollment_System.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.classfile.ClassFile.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +19,12 @@ public class studentController {
     private studentService studentService;
 
     @PostMapping
-    public Student createCourse(@RequestBody Student  student) {
-        return studentService.saveStudent(student);
+    public ResponseEntity<?> createCourse(@RequestBody Student  student) {
+        try {
+        	return ResponseEntity.ok().body(studentService.saveStudent(student));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 
     @GetMapping
@@ -48,7 +50,7 @@ public class studentController {
 			return ResponseEntity.ok().body("Student with ID " + id + " deleted");
 		} catch (Exception e) {
 		
-			return ResponseEntity.badRequest().body("Student with ID " + id + " not found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
     }
     @PutMapping("/{studentId}/course/{courseId}")

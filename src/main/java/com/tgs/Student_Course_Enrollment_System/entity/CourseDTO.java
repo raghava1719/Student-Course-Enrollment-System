@@ -43,5 +43,4 @@ public class CourseDTO {
 		this.students = students;
 	}
 
-    // Getters & Setters (or use Lombok)
 }

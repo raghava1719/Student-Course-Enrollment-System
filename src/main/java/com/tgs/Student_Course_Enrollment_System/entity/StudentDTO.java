@@ -1,19 +1,38 @@
 package com.tgs.Student_Course_Enrollment_System.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigInteger;
 
 public class StudentDTO {
 
     private Long id;
     private String name;
+    private String department; 
+    private BigInteger phno;
     
 
     public StudentDTO(Student student) {
         this.id = student.getId();
         this.name = student.getName();
+        this.department = student.getDepartment();
+        this.phno = student.getPhno();
+        
     }
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public BigInteger getPhno() {
+		return phno;
+	}
+
+	public void setPhno(BigInteger phno) {
+		this.phno = phno;
+	}
 
 	public Long getId() {
 		return id;

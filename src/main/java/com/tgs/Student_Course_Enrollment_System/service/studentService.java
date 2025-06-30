@@ -10,7 +10,7 @@ import com.tgs.Student_Course_Enrollment_System.entity.Student;
 
 public interface studentService {
 
-    Student saveStudent(Student student);
+    Student saveStudent(Student student) throws Exception;
 	List<Student> getAllStudents();
 	Optional<Student> getStudentById(long id);
 	void deleteStudent(long id) throws Exception;
