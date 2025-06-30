@@ -8,15 +8,12 @@ import lombok.Setter;
 
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @NoArgsConstructor
 public class Course {
 
@@ -24,8 +21,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
     
-    
+    @JsonIgnore
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<Student> studentsSet = new HashSet<Student>();
 
@@ -58,8 +56,6 @@ public class Course {
 	public void setStudentsSet(Set<Student> studentsSet) {
 		this.studentsSet = studentsSet;
 	}
-
-
 
 }
 

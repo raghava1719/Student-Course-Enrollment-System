@@ -3,8 +3,6 @@ package com.tgs.Student_Course_Enrollment_System.entity;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import lombok.Data;
-import lombok.Getter;
 
 
 public class CourseDTO {

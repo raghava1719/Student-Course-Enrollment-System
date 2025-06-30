@@ -29,12 +29,18 @@ public class studentServiceImp implements studentService {
         return sr.findAll();
     }
     @Override
-	public Student getStudentById(long id){
-        return sr.findById(id).orElse(null);
+	public Optional<Student> getStudentById(long id) {
+        return sr.findById(id);
+        
     }
     @Override
-	public void deleteStudent(long id){
-        sr.deleteById(id);
+	public void deleteStudent(long id) throws Exception{
+    	
+    	if(sr.findById(id).isPresent()){
+    		sr.deleteById(id);
+    		return;}
+    	throw new Exception("skd");
+        
     }
     @Override
     public Student enrollStudentToCourse(long studentId,long courseId) throws Exception{
@@ -44,7 +50,6 @@ public class studentServiceImp implements studentService {
         if(student!=null && course !=null)
         {
         	student.getEnrolledCourses().add(course);
-
             sr.save(student);
             return student;
         }
@@ -62,14 +67,28 @@ public class studentServiceImp implements studentService {
 
         if(student!=null && course !=null)
         {
+        	if(!student.getEnrolledCourses().contains(course))
+        		throw new Exception("Student is NOT ENROLLED in this Course");
         	student.getEnrolledCourses().remove(course);
-
             sr.save(student);
             return student;
         }
         else{
-            throw new Exception("Student or Course doesn't exist");
+        	if(student==null)
+        		throw new Exception("Student doesn't exist");
+            throw new Exception("Course doesn't exist");
         }
 
     }
+	@Override
+	public Student updateStudent(long id, Student newStudent) throws Exception {
+		Student student  = sr.findById(id).orElse(null);
+		if (student==null) 
+			throw new Exception("Studnet with ID: "+id+" doesn't exist.");
+		
+		student.setName(newStudent.getName());
+		
+		sr.save(student);
+		return student;
+	}
 }

@@ -12,9 +12,10 @@ public interface studentService {
 
     Student saveStudent(Student student);
 	List<Student> getAllStudents();
-	Student getStudentById(long id);
-	void deleteStudent(long id);
+	Optional<Student> getStudentById(long id);
+	void deleteStudent(long id) throws Exception;
     Student enrollStudentToCourse(long studentId,long courseId) throws Exception;
 	Student UnEnrollStudentToCourse(long studentId, long courseId) throws Exception;
+	Student updateStudent(long id, Student newStudent) throws Exception;
 
 }
