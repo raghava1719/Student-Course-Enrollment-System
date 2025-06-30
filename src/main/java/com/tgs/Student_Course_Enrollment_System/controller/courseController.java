@@ -25,8 +25,12 @@ public class courseController {
     private courseService courseService;
 
     @PostMapping
-    public Course createCourse(@RequestBody Course course) {
-        return courseService.saveCourse(course);
+    public ResponseEntity<?> createCourse(@RequestBody Course course) {
+        try {
+        	return ResponseEntity.ok().body(courseService.saveCourse(course));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 
     @GetMapping

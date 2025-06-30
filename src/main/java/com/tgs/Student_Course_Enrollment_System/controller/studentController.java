@@ -42,6 +42,16 @@ public class studentController {
     			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with ID " + id + " not found");
 			}
     }
+    @GetMapping("/")
+    public ResponseEntity<?> getStudentByDepartment(@RequestParam String department)  {
+    		List<Student> student = studentService.getStudentByDepartment(department);
+    		System.out.println(student);
+    		if(student.size()!=0)
+    			return ResponseEntity.ok(student);
+    		else {
+    			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Students with Department name: " + department + " not found");
+			}
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?>  deleteStudent(@PathVariable int id) {

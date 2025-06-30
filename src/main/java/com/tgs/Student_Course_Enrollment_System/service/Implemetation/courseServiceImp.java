@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 import com.tgs.Student_Course_Enrollment_System.entity.Course;
@@ -22,8 +24,14 @@ public class courseServiceImp implements courseService {
     private courseRepository courseRepository;
 
     @Override
-    public Course saveCourse(Course course) {
-           return courseRepository.save(course);
+    public Course saveCourse(Course course) throws Exception {
+    	try {
+    		return courseRepository.save(course);			
+		} catch (JpaSystemException e) 
+    	{
+			
+			throw new Exception("Duplicate entry for Course Name");
+		}
     }
     @Override
 	public List<Course> getAllCourses(){

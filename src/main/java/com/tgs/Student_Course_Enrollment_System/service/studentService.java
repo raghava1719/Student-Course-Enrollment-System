@@ -17,5 +17,6 @@ public interface studentService {
     Student enrollStudentToCourse(long studentId,long courseId) throws Exception;
 	Student UnEnrollStudentToCourse(long studentId, long courseId) throws Exception;
 	Student updateStudent(long id, Student newStudent) throws Exception;
+	List<Student> getStudentByDepartment(String department);
 
 }

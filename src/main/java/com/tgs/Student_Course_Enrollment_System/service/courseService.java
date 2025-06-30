@@ -11,7 +11,7 @@ import com.tgs.Student_Course_Enrollment_System.entity.StudentDTO;
 
 public interface courseService {
 
-	Course saveCourse(Course course);
+	Course saveCourse(Course course) throws Exception;
 	List<Course> getAllCourses();
 	Optional<Course> getCourseById(long id);
 	void deleteCourse(long id) throws SQLIntegrityConstraintViolationException, Exception;
