@@ -2,6 +2,7 @@ package com.tgs.Student_Course_Enrollment_System.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,11 +11,8 @@ import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Course {
 
     @Id

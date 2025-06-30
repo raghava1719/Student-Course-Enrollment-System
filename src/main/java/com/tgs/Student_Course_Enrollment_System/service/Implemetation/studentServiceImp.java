@@ -104,7 +104,7 @@ public class studentServiceImp implements studentService {
 	}
 	
 	public List<Student> getStudentByDepartment(String department){
-		System.out.println(department);
+		
 		return sr.findByDepartment(department);
 	}
 }
